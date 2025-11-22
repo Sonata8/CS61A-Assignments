@@ -8,7 +8,12 @@ def digit(n, k):
     >>> digit(3579, 10)
     0
     """
-    return ____
+    if k == 0:
+        return n % 10
+    while n > 0 and k > 0:
+        n //= 10
+        k -= 1
+    return n if n == 0 else n % 10
 
 
 def middle(a, b, c):
@@ -26,7 +31,7 @@ def middle(a, b, c):
     >>> middle(30, 5, 40)
     30
     """
-    return ____
+    return a + b + c - max(a, b, c) - min(a, b, c)
 
 
 def falling(n, k):
