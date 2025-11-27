@@ -55,12 +55,13 @@ HW_SOURCE_FILE=__file__
 def planet(mass):
     """Construct a planet of some mass."""
     assert mass > 0
+    return ['planet', mass]
     "*** YOUR CODE HERE ***"
 
 def mass(p):
     """Select the mass of a planet."""
     assert is_planet(p), 'must call mass on a planet'
-    "*** YOUR CODE HERE ***"
+    return p[1]
 
 def is_planet(p):
     """Whether p is a planet."""
@@ -112,7 +113,13 @@ def balanced(m):
     >>> check(HW_SOURCE_FILE, 'balanced', ['Index'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if not is_mobile(m):
+        return True
+    if length(left(m))*total_mass(end(left(m))) != length(right(m))*total_mass(end(right(m))):
+        return False
+    if (not balanced(end(left(m)))) or (not balanced(end(right(m)))):
+        return False
+    return True
 
 
 def berry_finder(t):
@@ -132,7 +139,12 @@ def berry_finder(t):
     >>> berry_finder(t)
     True
     """
-    "*** YOUR CODE HERE ***"
+    if label(t) == 'berry':
+        return True
+    for sub_t in branches(t):
+        if berry_finder(sub_t):
+            return True
+    return False
 
 
 HW_SOURCE_FILE=__file__
@@ -148,6 +160,9 @@ def max_path_sum(t):
     17
     """
     "*** YOUR CODE HERE ***"
+    if is_leaf(t):
+        return label(t)
+    return label(t) + max([max_path_sum(sub_t) for sub_t in branches(t)])
 
 
 def mobile(left, right):
