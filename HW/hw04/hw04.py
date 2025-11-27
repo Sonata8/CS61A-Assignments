@@ -12,7 +12,12 @@ def shuffle(s):
     ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     """
     assert len(s) % 2 == 0, 'len(seq) must be even'
-    "*** YOUR CODE HERE ***"
+    half_len = len(s) // 2
+    interleave = []
+    for i in range(half_len):
+        interleave.append(s[i])
+        interleave.append(s[i + half_len])
+    return interleave
 
 
 def deep_map(f, s):
@@ -37,7 +42,11 @@ def deep_map(f, s):
     >>> s3 is s2[1]
     True
     """
-    "*** YOUR CODE HERE ***"
+    for i in range(len(s)):
+        if type(s[i]) == list:
+            deep_map(f, s[i])
+        else:
+            s[i] = f(s[i])
 
 
 HW_SOURCE_FILE=__file__
