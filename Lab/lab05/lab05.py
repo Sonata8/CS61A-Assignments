@@ -26,7 +26,18 @@ def insert_items(s, before, after):
     >>> large_s3 is large_s
     True
     """
-    "*** YOUR CODE HERE ***"
+    L = len(s)
+    i = 0
+    modified = False
+    while i < L:
+        if s[i] == before and (not modified):
+            s.insert(i + 1, after)
+            modified = True
+            L += 1
+        else:
+            modified = False
+        i += 1
+    return s
 
 
 def group_by(s, fn):
@@ -40,12 +51,12 @@ def group_by(s, fn):
     {9: [-3, 3], 4: [-2, 2], 1: [-1, 1], 0: [0]}
     """
     grouped = {}
-    for ____ in ____:
-        key = ____
+    for e in s:
+        key = fn(e)
         if key in grouped:
-            ____
+            grouped[key].append(e)
         else:
-            grouped[key] = ____
+            grouped[key] = [e]
     return grouped
 
 
@@ -70,7 +81,14 @@ def count_occurrences(t, n, x):
     >>> count_occurrences(v, 6, 6)
     2
     """
-    "*** YOUR CODE HERE ***"
+    i = 0
+    cnt = 0
+    while i < n:
+        ele = next(t)
+        if ele == x:
+            cnt += 1
+        i += 1
+    return cnt
 
 
 def repeated(t, k):
@@ -93,8 +111,15 @@ def repeated(t, k):
     2
     """
     assert k > 1
-    "*** YOUR CODE HERE ***"
-
+    counted = [None, None]
+    while True:
+        ele = next(t)
+        if ele == counted[0]:
+            counted[1] += 1
+        else:
+            counted = [ele, 1]
+        if counted[1] == k:
+            return counted[0]
 
 def sprout_leaves(t, leaves):
     """Sprout new leaves containing the labels in leaves at each leaf of
@@ -129,7 +154,12 @@ def sprout_leaves(t, leaves):
           1
           2
     """
-    "*** YOUR CODE HERE ***"
+    if is_leaf(t):
+        l = [tree(x) for x in leaves]
+        t = tree(label(t), l)
+    else:
+        t = tree(label(t), [sprout_leaves(sub_t, leaves) for sub_t in branches(t)])
+    return t
 
 
 def partial_reverse(s, start):
@@ -144,7 +174,14 @@ def partial_reverse(s, start):
     >>> a
     [1, 2, 7, 6, 5, 3, 4]
     """
-    "*** YOUR CODE HERE ***"
+    i = start
+    j = end = len(s) - 1
+    while True:
+        s[i], s[j] = s[j], s[i]
+        if i == (start + end) // 2:
+            break
+        i += 1
+        j -= 1
 
 
 
