@@ -7,8 +7,23 @@
 ;; Returns a list of two-element lists
 (define (enumerate s)
   ; BEGIN PROBLEM 15
-  'replace-this-line
+  (define (count s)
+        (if (null? s) 0 (+ 1 (count (cdr s))))
   )
+  (let ((total (count s)))
+      
+      (define (work s)
+          (cond
+            ((null? s) nil)
+            (else (append (list (list (- total (count s)) (car s))) (work (cdr s))))
+        )
+      )
+      
+      (work s)
+  )
+)
+
+;(enumerate '(1 2 3)) 
   ; END PROBLEM 15
 
 ;; Problem 16
@@ -17,7 +32,14 @@
 ;; the merged lists.
 (define (merge ordered? s1 s2)
   ; BEGIN PROBLEM 16
-  'replace-this-line
+  (cond
+        ((null? s1) (append s2))
+        ((null? s2) (append s1))
+        (else
+            (if (ordered? (car s1) (car s2)) (append (list (car s1)) (merge ordered? (cdr s1) s2))
+                                             (append (list (car s2)) (merge ordered? s1 (cdr s2))))
+        )
+  )
   )
   ; END PROBLEM 16
 
